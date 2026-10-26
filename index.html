@@ -1,9 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head><title> File HTML to insert in docker image for SSS2026 project  </title></head>
+<head>
+    <title> File HTML to insert in docker image for SSS2026 project </title>
+</head>
+
 <body>
     <h1> Creating a body for future features. </h1>
 
+    <form id="loginForm">
+        <label for="anno">Anno</label>
+        <select id="anno" name="anno">
+            <option value="secondo">Secondo Anno</option>
+            <option value="terzo">Terzo Anno</option>
+        </select>
+        <br><br>
+
+        <input type="text" id="nome" name="nome" required minlength="1" maxlength="20" placeholder="Nome" />
+        <br><br>
+
+        <input type="password" id="password" name="password" required minlength="6" maxlength="20" placeholder="Password" />
+        <br><br>
+
+        <button type="submit">Accedi</button>
+    </form>
+
+
+    <h2 id="messaggioRisposta" style="color: black;"></h2>
+
+ 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const anno = document.getElementById('anno').value;
+            const password = document.getElementById('password').value;
+
+        
+            const risposta = document.getElementById('messaggioRisposta');
+
+        
+            if (password === "Password123") {
+                risposta.style.color = "black";
+                risposta.innerText = "Benvenuto " + nome + "! Hai effettuato l'accesso come studente del " + anno + " anno.";
+            } else {
+                risposta.style.color = "red";
+                risposta.innerText = "Errore: La password e' sbagliata (prova con 'Password123').";
+            }
+        });
+    </script>
+
 </body>
+
 </html>
