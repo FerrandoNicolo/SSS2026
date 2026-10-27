@@ -1,0 +1,22 @@
+## Dockerfile per costruire il 'frontend' dell'applicazione
+## Fase 1: Build - Definisco le operazioni percisate nel terminale per lanciare il frontend dell'applicazione
+FROM node:24-alpine as build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build    
+## Uso quest'ultimo comanddo (e non 'npm start') per tradurre il file JSON, ma non eseguirlo
+
+## Fase 2: Prendo il file ottimizzato e utilizzo un'immagine più leggera (come 'nginx' usata nell'ultima esercitazione) 
+## per eseguire il frontend
+FROM nginx:alpine
+
+COPY --from=build /app/dist/SomeBankingFrontend /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
