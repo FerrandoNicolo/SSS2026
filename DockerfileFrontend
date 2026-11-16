@@ -1,12 +1,20 @@
-# Versione corretta del Dockerfile per il frontend per applicazione SomeBankingFrontend
-
 #Fase 1: Build stage
-FROM node AS build      
-WORKDIR /app
-COPY . .
-RUN npm i 
-RUN ./node_modules/.bin/ng build 
+FROM node:20-alpine AS build 
+
+RUN apk add git
+RUN git clone https://github.com/mmenapace/SomeBankingApp /app
+
+WORKDIR /app/frontend
+
+RUN npm install
+RUN npm run build 
 
 #Fase 2: Runtime stage
 FROM nginx:alpine
-COPY --from=build /app/dist/SomeBankingFrontend/browser /usr/share/nginx/html
+COPY --from=build /app/frontend/dist/SomeBankingFrontend/browser /usr/share/nginx/html
+
+##Modifica del Dockerfile per il Forntend che va a clonare la repo che contiene al suo intenro 
+##la Web App per poi eseguire le medesime azioni di instalazione e build che si avevano prima, 
+##ossia quando si andava a scaricare sulla nostra macchina locale il codice sorgente.
+
+#NOTA --> utilizzo AI per l'installazione di git
