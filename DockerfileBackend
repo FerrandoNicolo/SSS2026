@@ -8,6 +8,8 @@ WORKDIR /app/backend
 
 RUN printf "\nfastapi\n" >> requirements.txt
 
+RUN sed -i 's|allow_origins=\["http://localhost:4200"\]|allow_origins=["*"]|g' main.py
+
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
@@ -23,4 +25,6 @@ ENTRYPOINT ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port"
 ##funziona.
 ##A questo punto mi basta intallare i requisiti per poi lanciare il backend.
 
-##NOTA --> Utilizzo di AI per la riga 3, ossia per i comandi di installazione di git.
+##NOTA --> Utilizzo di AI per la riga 3, ossia per i comandi di installazione di git. Inoltre è stata
+##utilizzata anche per modificare il valore di 'allow_origins' per permettere che il frontend,
+##mappato su porta 80, possa comunicare con il backend.
