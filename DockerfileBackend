@@ -1,9 +1,26 @@
 FROM python
-WORKDIR /app
 
-COPY ./requirements.txt .
-COPY ./main.py .
+RUN apt-get update && apt-get install -y --no-install-recommends git   && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/mmenapace/SomeBankingApp /app
+
+WORKDIR /app/backend
+
+RUN printf "\nfastapi\n" >> requirements.txt
 
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+
+##Prendo un'immagine di base di python per servire il mio backend.
+##Successivamente procedo ad installare git e a clonare la repository
+##nella quale ho presente il backend.
+##Al contrario di quanto fatto con il dockerfile per il BE precedente, non 
+##procedo a copiare i requirements.txt e main.py siccome accedo direttamente alla
+##cartella in cui ho copiato la repo.
+##Tuttavia, eseguendo semplicemente un 'clone' della repo, dobbiamo andare ad inserire 
+##anche 'fastapi' all'interno del file contenente i REQUIREMENTS, altrimenti i mio container non
+##funziona.
+##A questo punto mi basta intallare i requisiti per poi lanciare il backend.
+
+##NOTA --> Utilizzo di AI per la riga 3, ossia per i comandi di installazione di git.
