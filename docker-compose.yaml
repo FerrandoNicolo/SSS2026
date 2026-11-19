@@ -1,1 +1,18 @@
-SSS2026
+services:
+    reverse-proxy:
+        image: reverse-proxy-image:latest
+        ports:
+            - "80:80"
+        depends_on:
+            - frontend
+            - backend
+
+    frontend:
+        image: final-frontendimage:latest
+        expose:
+            - "80"
+        
+    backend:
+        image: final-backendimage:latest
+        expose:
+            - "8000"
