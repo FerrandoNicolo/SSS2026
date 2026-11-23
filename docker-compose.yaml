@@ -16,3 +16,5 @@ services:
         image: final-backendimage:latest
         expose:
             - "8000"
+        ports:
+            - "8000:8000"
