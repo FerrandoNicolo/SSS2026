@@ -12,7 +12,7 @@ RUN sed -i 's|allow_origins=\["http://localhost:4200"\]|allow_origins=["*"]|g' m
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+ENTRYPOINT ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ##Prendo un'immagine di base di python per servire il mio backend.
 ##Successivamente procedo ad installare git e a clonare la repository
