@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages{
+        stage('Backend Build'){
+            steps{
+                echo 'Building Backend'
+
+                dir('Backend'){
+                    sh 'docker build -t my-backend .'
+                }
+            }
+        }
+        stage('Frontend Build'){
+            steps{
+                echo 'Building Frontend'
+
+                dir('Frontend'){
+                    sh 'docker build -t my-frontend .'
+                }
+            }
+        }
+    }
+}
