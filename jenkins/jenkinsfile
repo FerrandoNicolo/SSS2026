@@ -7,7 +7,7 @@ pipeline {
                 echo 'Building Backend'
 
                 dir('Backend'){
-                    sh 'docker build -t my-backend .'
+                    sh 'docker build -f DockerfileBackend -t my-backend .'
                 }
             }
         }
@@ -16,7 +16,7 @@ pipeline {
                 echo 'Building Frontend'
 
                 dir('Frontend'){
-                    sh 'docker build -t my-frontend .'
+                    sh 'docker build -f DockerfileFrontend -t my-frontend .'
                 }
             }
         }
